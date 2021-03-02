@@ -1,17 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img alt="Vue logo" src="./assets/logo.png" />
+
+  <!-- <div>{{count}}</div> -->
+  <div>Completed Todos: {{ doneTodosCount }} </div>
+  <div>get to by Id:{{getTodoById(3)}}</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import { mapState } from "vuex";
+import { mapGetters } from 'vuex';
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: {},
+  data() {
+    return {
+      message: "hello vue",
+      localCount: 5,
+    };
+  },
+  computed:mapGetters([
+    'doneTodos', 'doneTodosCount', 'getTodoById'
+  ])
+
+  //  {
+  //   doneTodosCount() {
+  //     return this.$store.getters.doneTodosCount;
+  //   },
+  //    getTodoById() {
+  //     return this.$store.getters.getTodoById;
+  //   },
+  // },
+  //  mapState(['count']),
+  // Mapstate
+  //  count: (state) => state.count,
+  //   countAlias: "count",
+  //   countPlusLocalState(state) {
+  //     return state.count + this.localCount;
+  //   },
+  // with computed props
+  //  {
+  //   countComputed() {
+  //     return this.$store.state.count;
+  //   },
+
+  // },
+};
 </script>
 
 <style>
