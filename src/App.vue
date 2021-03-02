@@ -1,14 +1,19 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
 
-  <!-- <div>{{count}}</div> -->
-  <div>Completed Todos: {{ doneTodosCount }} </div>
-  <div>get to by Id:{{getTodoById(3)}}</div>
+  <div>{{count}}</div>
+  <br />
+  <button @click="increment">+</button>
+  <button @click="decrement">-</button>
+  <!-- <div>Completed Todos: {{ doneTodosCount }} </div>
+  <div>get to by Id:{{getTodoById(2)}}</div>-->
 </template>
 
 <script>
 // import { mapState } from "vuex";
-import { mapGetters } from 'vuex';
+// import { mapGetters } from "vuex";
+// import { mapMutations } from "vuex";
+
 export default {
   name: "App",
   components: {},
@@ -18,9 +23,30 @@ export default {
       localCount: 5,
     };
   },
-  computed:mapGetters([
-    'doneTodos', 'doneTodosCount', 'getTodoById'
-  ])
+  methods: {
+    increment() {
+      this.$store.dispatch("incrementAsync");
+    },
+    decrement() {
+      this.$store.commit("decrement");
+    },
+  },
+  // mapMutaions
+  // mapMutations([
+  //   "increment",
+  //   "incrementBy",
+  //   "decrement",
+  //   "decrementBy",
+  // ]),
+
+  computed: {
+    count() {
+      console.log("31====", this.$store.state.count);
+      return this.$store.state.count;
+    },
+  },
+
+  // mapGetters(["doneTodos", "doneTodosCount", "getTodoById"]),
 
   //  {
   //   doneTodosCount() {
