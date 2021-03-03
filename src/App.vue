@@ -30,6 +30,12 @@ export default {
     decrement() {
       this.$store.commit("decrement");
     },
+    testAction(){
+      this.$$store.dispatch('acitonA').then(() => {
+
+      })
+    },
+    // getData(){}
   },
   // mapMutaions
   // mapMutations([

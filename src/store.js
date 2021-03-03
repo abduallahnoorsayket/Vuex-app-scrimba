@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import axios from "axios";
 
 const store = createStore({
   state: {
@@ -41,6 +42,35 @@ const store = createStore({
       setTimeout(() => {
         commit("increment");
       }, 2000);
+    },
+    actionA({ commit }) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          commit("someMutation");
+          resolve();
+        }, 1000);
+      });
+    },
+    actionB({ dispatch, commit }) {
+      return dispatch("actionA").then(() => {
+        commit("someOtherMutation");
+      });
+    },
+
+    async actionC({ commit }) {
+      commit(
+        "gotData",
+        await axios("https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=10&format=plain&rnd=new")
+      );
+    },
+    async actionD({ commit }) {
+      await this.dispatch("actionC");
+      commit(
+        "gotOtherData",
+        await axios("https://www.random.org/integers/?num=1&min=1&max=6&col=1&base=10&format=plain&rnd=new").then((response) => {
+          commit("increaseCounter", response.data);
+        })
+      );
     },
   },
 });
