@@ -1,7 +1,18 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
 
-  <div>{{count}}</div>
+  <div>Double Count A: {{doubleCountA}}</div>
+  <div>Double Count B: {{doubleCountB}}</div>
+  <div>Double Count : {{doubleCount}}</div>
+  <div>Double Count : {{this.$store.state.count}}</div>
+
+
+  <br />
+  <br />
+  {{message}}
+  <br />
+  <input v-model="message" />
+  <br />
   <br />
   <button @click="increment">+</button>
   <button @click="decrement">-</button>
@@ -19,7 +30,6 @@ export default {
   components: {},
   data() {
     return {
-      message: "hello vue",
       localCount: 5,
     };
   },
@@ -30,10 +40,8 @@ export default {
     decrement() {
       this.$store.commit("decrement");
     },
-    testAction(){
-      this.$$store.dispatch('acitonA').then(() => {
-
-      })
+    testAction() {
+      this.$store.dispatch("acitonA").then(() => {});
     },
     // getData(){}
   },
@@ -47,8 +55,24 @@ export default {
 
   computed: {
     count() {
-      console.log("31====", this.$store.state.count);
       return this.$store.state.count;
+    },
+    message: {
+      get() {
+        return this.$store.state.message;
+      },
+      set(value) {
+        this.$store.commit("updateMessage", value);
+      },
+    },
+     doubleCountA() {
+      return this.$store.getters["a/doubleCountA"];
+    },
+    doubleCountB() {
+      return this.$store.getters["b/doubleCountB"];
+    },
+    doubleCount() {
+      return this.$store.getters.doubleCount;
     },
   },
 
